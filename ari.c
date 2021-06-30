@@ -1,65 +1,31 @@
 #include <stdio.h>
-#include <assert.h>
 #include <string.h>
 #include <cs50.h>
+#include <ctype.h>
+#include <math.h>
 
-string ari(string);
+string table[14] = {"Kindergarten", "First/Second Grade", "Third Grade", "Fourth Grade", "Fifth Grade", "Sixth Grade", "Seventh Grade",
+    "Eighth Grade", "Ninth Grade", "Tenth Grade", "Eleventh Grade", "Twelfth Grade", "College student", "Professor"};
 
-string grade (int);
-
-string ari(string b)
-{
- 
-  int w=0,s=0,k=0;
- for(int i=0;i<strlen(b);i++)
- {
-   
-   if(b[i]>='0' && b[i]<='9')
-    k++;
-   else if(b[i]>='a' && b[i]<='z')
-    k++;
-   else if(b[i]>='A' && b[i]<='Z')
-    k++;
-    
-   if(b[i]==' ')
-    w++;
-   else if(b[i]=='.' || b[i]=='?')
-    s++;
-    else if(b[i]=='!')
-    s++;
-   
- }
-   
-  float add = (4.71*(float)(k)/w)+(0.5*((float)(w)/s))-21.43;
-  string grade(int add)
-{
-    
-    
-
-
-  switch(add){
-  case  1  : return"Kindergarten";
-  
- case 2 :return "First/Second Grade";
- case   3  : return "Third Grade";
-  case 4 : return "Fourth Grade";
-case     5 : return " Fifth Grade";
- case 6 : return "Sixth Grade";
-   case 7  : return "Seventh Grade";
-    case  8 : return "Eighth Grade";
-    case  9 : return "Ninth Grade";
-  case  10 : return "Tenth Grade";
-   case 11 : return "Eleventh Grade";
- case   12 : return "Twelfth grade";
-  case 13  : return "College student";
-  case  14: return "Professor";
-  
- 
-    
+string ari(string s) {
+    int c = strlen(s);
+    int characters = 0;
+    int words = 0;
+    int sentences = 0;
+    for (int i=0;i<c;i++) {
+        if (isalnum(s[i])) {
+            characters +=1;
+        }
+        else if (s[i] == ' ') {
+            words +=1;
+        }
+        else if (s[i] == '.' || s[i] == '?' || s[i] == '!') {
+            sentences +=1;
+        }
     }
-    }
-  b= grade((int)(add)+1);
-  
-  return b;
-
+    float value = ((4.71*((float)characters/words)) + (0.5*((float)words/sentences)) - 21.43);
+    int a = (int)value;
+    int value2 = a +1;
+    int score = value2 - 1;
+    return table[score];
 }
